@@ -3,61 +3,193 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Surplus Food Donation Platform</title>
+  <title>Surplus Food</title>
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <!-- Custom CSS -->
-  <style>
-    /* Add your custom styles here */
-  </style>
 </head>
 <body>
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Surplus Food</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Donate</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Find Food</a>
-      </li>
-    </ul>
+<!-- Login Section -->
+<div class="container mt-5 text-center" id="login">
+  <h2>Login</h2>
+  <button class="btn btn-primary mt-3" onclick="loginAsDonor()">Login as Donor</button>
+  <button class="btn btn-success mt-3" onclick="loginAsDonee()">Login as Donee</button>
+</div>
+
+<!-- Donor Page -->
+<div id="donorPage" style="display: none;">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Surplus Food</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="#donateModal" data-toggle="modal" data-target="#donateModal">Donate</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#rewardsModal" data-toggle="modal" data-target="#rewardsModal">Rewards</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#historyModal" data-toggle="modal" data-target="#historyModal">History</a>
+        </li>
+        <li class="nav-item">
+            <button class="btn btn-link" onclick="loginshow()">Switch Login</button>
+            
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Donate Modal -->
+  <div class="modal fade" id="donateModal" tabindex="-1" role="dialog" aria-labelledby="donateModalLabel" aria-hidden="true">
+    <!-- ... (Donor Modal Code) -->
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="donateModalLabel">Donate</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <!-- Donation Form -->
+              <form id="donateForm">
+                <div class="form-group">
+                  <label for="foodItem">Food Item</label>
+                  <input type="text" class="form-control" id="foodItem" placeholder="Enter food item name" required>
+                </div>
+                <div class="form-group">
+                  <label for="quantity">Quantity</label>
+                  <input type="number" class="form-control" id="quantity" placeholder="Enter quantity" required>
+                </div>
+                <div class="form-group">
+                  <label for="expiryDate">Expiry Date</label>
+                  <input type="date" class="form-control" id="expiryDate" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Donate</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      
   </div>
-</nav>
 
-<!-- Jumbotron/ Hero Section -->
-<div class="jumbotron text-center">
-  <h1 class="display-4">Help Us Reduce Food Waste!</h1>
-  <p class="lead">Donate surplus food to those in need.</p>
+  <!-- Recent Donations Section -->
+  <div class="container mt-3">
+    <h2>Recent Donations</h2>
+    <div id="donateCardsContainer">
+      <!-- Dynamic cards will be appended here -->
+      <!-- Display "Nil" if no donations are present -->
+    </div>
+  </div>
+
+  <!-- Rewards Modal -->
+  <div class="modal fade" id="rewardsModal" tabindex="-1" role="dialog" aria-labelledby="rewardsModalLabel" aria-hidden="true">
+    <!-- ... (Rewards Modal Code) -->
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="rewardsModalLabel">Rewards</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <!-- Display rewards information here -->
+              <p>Total Reward Points: <!-- Your dynamically calculated reward points here --></p>
+            </div>
+          </div>
+        </div>
+
+  </div>
+
+  <!-- History Modal -->
+  <div class="modal fade" id="historyModal" tabindex="-1" role="dialog" aria-labelledby="historyModalLabel" aria-hidden="true">
+    <!-- ... (History Modal Code) -->
+    
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="historyModalLabel">Donation History</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <!-- Display donation history information here -->
+              <!-- This can be a table or a list of previous donations -->
+            </div>
+          </div>
+        </div>
+      
+  </div>
+
+  <!-- Bootstrap JS and Popper.js -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+     // Function to handle form submission and create dynamic card
+  document.getElementById('donateForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    // Get form values
+    var foodItem = document.getElementById('foodItem').value;
+    var quantity = document.getElementById('quantity').value;
+    var expiryDate = document.getElementById('expiryDate').value;
+
+    // Create a new card
+    var card = document.createElement('div');
+    card.className = 'card mt-3';
+
+    var cardBody = document.createElement('div');
+    cardBody.className = 'card-body';
+
+    var cardTitle = document.createElement('h5');
+    cardTitle.className = 'card-title';
+    cardTitle.textContent = foodItem;
+
+    var cardText = document.createElement('p');
+    cardText.className = 'card-text';
+    cardText.textContent = 'Quantity: ' + quantity + ', Expiry Date: ' + expiryDate;
+
+    cardBody.appendChild(cardTitle);
+    cardBody.appendChild(cardText);
+    card.appendChild(cardBody);
+
+    // Append the card to the container (insert at the beginning to show recent donations on top)
+    document.getElementById('donateCardsContainer').insertBefore(card, document.getElementById('donateCardsContainer').firstChild);
+
+    // Clear the form
+    document.getElementById('donateForm').reset();
+
+    // Close the modal
+    $('#donateModal').modal('hide');
+  });
+  </script>
 </div>
 
-<!-- Main Content -->
-<div class="container">
-  <!-- Donation Form -->
-  <section id="donation-form">
-    <h2 class="text-center mb-4">Post Surplus Food</h2>
-    <!-- Your donation form HTML goes here -->
-  </section>
+<!-- JavaScript for Login and Page Visibility -->
+<script>
+  function loginAsDonor() {
+    document.getElementById('login').style.display = 'none';
+    document.getElementById('donorPage').style.display = 'block';
+  }
 
-  <!-- Food Search Section -->
-  <section id="food-search">
-    <h2 class="text-center mb-4">Find Food</h2>
-    <!-- Your food search HTML goes here -->
-  </section>
-</div>
+  function loginshow() {
+    document.getElementById('donorPage').style.display = 'none';
+    document.getElementById('login').style.display = 'block';
+  }
 
-<!-- Bootstrap JS and Popper.js -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  function loginAsDonee() {
+    // Redirect to the Donee page or show Donee-specific content
+    // You can replace the below line with your Donee page URL or content
+    alert('Redirect to Donee Page or Show Donee-specific Content');
+  }
+</script>
+
 </body>
 </html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Donor Page</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+    <div class="container mt-5 text-center" id="login" style="height:100vh">
+        <h2>Login</h2>
+        <a href="donate"><button class="btn btn-primary mt-3">Login as Donor</button></a>
+        <button class="btn btn-success mt-3">Login as Donee</button>
+      </div>
+
+<div id="donate">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Surplus Food</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="#donateModal" data-toggle="modal" data-target="#donateModal">Donate</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#rewardsModal" data-toggle="modal" data-target="#rewardsModal">Rewards</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#historyModal" data-toggle="modal" data-target="#historyModal">History</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+</div>
+
+<!-- Donate Modal -->
+<div class="modal fade" id="donateModal" tabindex="-1" role="dialog" aria-labelledby="donateModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="donateModalLabel">Donate</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Donation Form -->
+        <form id="donateForm">
+          <div class="form-group">
+            <label for="foodItem">Food Item</label>
+            <input type="text" class="form-control" id="foodItem" placeholder="Enter food item name" required>
+          </div>
+          <div class="form-group">
+            <label for="quantity">Quantity</label>
+            <input type="number" class="form-control" id="quantity" placeholder="Enter quantity" required>
+          </div>
+          <div class="form-group">
+            <label for="expiryDate">Expiry Date</label>
+            <input type="date" class="form-control" id="expiryDate" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Donate</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Recent Donations Section -->
+<div class="container mt-3">
+  <h2>Recent Donations</h2>
+  <div id="donateCardsContainer">
+    <!-- Dynamic cards will be appended here -->
+    <!-- Display "Nil" if no donations are present -->
+  </div>
+</div>
+
+<!-- Rewards Modal -->
+<div class="modal fade" id="rewardsModal" tabindex="-1" role="dialog" aria-labelledby="rewardsModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="rewardsModalLabel">Rewards</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Display rewards information here -->
+        <p>Total Reward Points: <!-- Your dynamically calculated reward points here --></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- History Modal -->
+<div class="modal fade" id="historyModal" tabindex="-1" role="dialog" aria-labelledby="historyModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="historyModalLabel">Donation History</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Display donation history information here -->
+          <!-- This can be a table or a list of previous donations -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+<!-- Bootstrap JS and Popper.js -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+  // Function to handle form submission and create dynamic card
+  document.getElementById('donateForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    // Get form values
+    var foodItem = document.getElementById('foodItem').value;
+    var quantity = document.getElementById('quantity').value;
+    var expiryDate = document.getElementById('expiryDate').value;
+
+    // Create a new card
+    var card = document.createElement('div');
+    card.className = 'card mt-3';
+
+    var cardBody = document.createElement('div');
+    cardBody.className = 'card-body';
+
+    var cardTitle = document.createElement('h5');
+    cardTitle.className = 'card-title';
+    cardTitle.textContent = foodItem;
+
+    var cardText = document.createElement('p');
+    cardText.className = 'card-text';
+    cardText.textContent = 'Quantity: ' + quantity + ', Expiry Date: ' + expiryDate;
+
+    cardBody.appendChild(cardTitle);
+    cardBody.appendChild(cardText);
+    card.appendChild(cardBody);
+
+    // Append the card to the container (insert at the beginning to show recent donations on top)
+    document.getElementById('donateCardsContainer').insertBefore(card, document.getElementById('donateCardsContainer').firstChild);
+
+    // Clear the form
+    document.getElementById('donateForm').reset();
+
+    // Close the modal
+    $('#donateModal').modal('hide');
+  });
+
+</script>
+
+</body>
+</html>
