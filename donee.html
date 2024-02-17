@@ -98,7 +98,7 @@
             </div>
             <div class="modal-body">
               <!-- Display rewards information here -->
-              <p id="rewardcount">Total Reward Points: <!-- Your dynamically calculated reward points here --></p>
+              <p>Total Reward Points: <!-- Your dynamically calculated reward points here --></p>
             </div>
           </div>
         </div>
@@ -148,7 +148,7 @@
               <a class="nav-link" href="#">Home</a>
             </li>
             <li class="nav-item">
-              <a href="#cartContainer"><button class="btn btn-link">My Cart</button></a>
+              <a class="nav-link" href="#">Cart</a>
             </li>
             <li class="nav-item">
               <button class="btn btn-link" onclick="loginshow()">Switch Login</button>
@@ -164,25 +164,21 @@
     </div>
      <!-- Recent Donations Section -->
   <!-- Donee Page Container -->
-  <div id="doneePageContainer"  style= "height:90vh" class="container mt-3">
+  <div id="doneePageContainer" class="container mt-3">
     <h2>Available Donations</h2>
     <!-- Available donations will be dynamically added here -->
   </div>
-
-    <!-- Cart Section for Donee -->
-  <div id="cartContainer" style= "height:100vh" class="container mt-3" style="display: none;">
-    <h2>Cart</h2>
-    <!-- Cart items will be dynamically added here -->
-    <button class="btn btn-success" onclick="Ordernow()">Place Order</button>
-  </div>
-
+  <script>
+  </script>
+  
+    
 </div>
 
 
 
 <!-- JavaScript for Login and Page Visibility -->
 <script>
-   document.getElementById('donateForm').addEventListener('submit', function(event) {
+  document.getElementById('donateForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
     // Get form values
@@ -196,7 +192,6 @@
 
     // Check if the item is expired
     var isExpired = expiryDate < currentDateString;
-
 
     // Create a new card for donor
     var donorCard = createDonorCard(foodItem, quantity, expiryDate);
@@ -255,30 +250,12 @@
       cardText.textContent += ' (Expired)';
     }
 
-    var cardButton = document.createElement('button');
-    cardButton.className = 'btn btn-success';
-    cardButton.onclick = function() {
-        printnow(foodItem, quantity, expiryDate, isExpired);
-      };
-    cardButton.textContent = "Add to cart";
-
     cardBody.appendChild(cardTitle);
     cardBody.appendChild(cardText);
-    cardBody.appendChild(cardButton);
     card.appendChild(cardBody);
 
     return card;
   }
-  var count = 0;
-  function printnow(foodItem, quantity, expiryDate, isExpired) {
-      // Clone the card
-      var clonedCard = createDoneeCard(foodItem, quantity, expiryDate, isExpired);
-        count++;
-        console.log(count)
-      // Append the cloned card to the cart container
-      document.getElementById('cartContainer').appendChild(clonedCard);
-
-    }
 
   function loginAsDonor() {
     document.getElementById('login').style.display = 'none';
@@ -294,13 +271,6 @@
   function loginAsDonee() {
     document.getElementById('login').style.display = 'none';
     document.getElementById('doneePage').style.display = 'block';
-  }
-
-
-  function Ordernow(){
-    alert("Order Placed !");
-    // document.getElementById('cartContainer').remove();
-    document.getElementById("rewardcount").innerHTML = "Total Reward Points: " + count;
   }
 </script>
 
